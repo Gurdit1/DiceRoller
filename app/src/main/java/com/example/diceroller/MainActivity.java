@@ -60,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
         android.widget.TextView tv = this.findViewById(R.id.textView); //Random number output text
         android.widget.TextView et = this.findViewById(R.id.editText); //User input
         android.widget.TextView c = this.findViewById(R.id.congrats); //Congrats message
+        android.widget.TextView sc = this.findViewById(R.id.score); //Score text
 
-        String guessStr = String.valueOf(et.getText());
+        int score = Integer.parseInt(String.valueOf(sc.getText()));
+        String guessStr = String.valueOf(et.getText()); //String variant of guess used so program doesn't crash on non-integer inputs
         if((!guessStr.equals("1"))&&(!guessStr.equals("2"))&&(!guessStr.equals("3"))&&(!guessStr.equals("4"))&&(!guessStr.equals("5"))&&(!guessStr.equals("6"))){
             c.setText("Error: Input 1-6");
         }
@@ -76,12 +78,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (number == guess) {
-                c.setText("Congratulations!");
+                c.setText("Congratulations! +1");
+                score += 1;
             } else {
-                c.setText("Wrong");
+                score -= 1;
+                c.setText("Wrong! -1");
             }
 
-
+            sc.setText(Integer.toString(score));
             tv.setText(Integer.toString(number));
         }
 
