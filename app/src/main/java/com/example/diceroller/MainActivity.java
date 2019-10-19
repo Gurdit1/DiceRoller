@@ -56,18 +56,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void on_Button_Click(View view){
-        android.widget.TextView tv = this.findViewById(R.id.textView);
-        Random r = new Random();
-        int number = r.nextInt( 6);
+        int guess;
+        android.widget.TextView tv = this.findViewById(R.id.textView); //Random number output text
+        android.widget.TextView et = this.findViewById(R.id.editText); //User input
+        android.widget.TextView c = this.findViewById(R.id.congrats); //Congrats message
 
-        //Stops 0 from being outputted
-        while(number==0){
-            number = r.nextInt( 6);
+        String guessStr = String.valueOf(et.getText());
+        if((!guessStr.equals("1"))&&(!guessStr.equals("2"))&&(!guessStr.equals("3"))&&(!guessStr.equals("4"))&&(!guessStr.equals("5"))&&(!guessStr.equals("6"))){
+            c.setText("Error: Input 1-6");
         }
+        else {
+            guess = Integer.parseInt(guessStr);
+            //Random generator
+            Random r = new Random();
+            int number = r.nextInt(6);
+            //Stops 0 from being outputted
+            while (number == 0) {
+                number = r.nextInt(6);
+            }
+
+            if (number == guess) {
+                c.setText("Congratulations!");
+            } else {
+                c.setText("Wrong");
+            }
 
 
-        tv.setText(Integer.toString(number));
-
+            tv.setText(Integer.toString(number));
+        }
 
 
 
