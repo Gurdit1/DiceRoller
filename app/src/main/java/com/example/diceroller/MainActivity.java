@@ -1,5 +1,6 @@
 package com.example.diceroller;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -55,12 +57,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void on_Button_Click(View view){
+    public void roll_the_dice(View view){
         int guess;
         android.widget.TextView tv = this.findViewById(R.id.textView); //Random number output text
         android.widget.TextView et = this.findViewById(R.id.editText); //User input
         android.widget.TextView c = this.findViewById(R.id.congrats); //Congrats message
         android.widget.TextView sc = this.findViewById(R.id.score); //Score text
+        android.widget.TextView qu = this.findViewById(R.id.questionTextView);// D-ICEBREAKER question
 
         int score = Integer.parseInt(String.valueOf(sc.getText()));
         String guessStr = String.valueOf(et.getText()); //String variant of guess used so program doesn't crash on non-integer inputs
@@ -87,9 +90,57 @@ public class MainActivity extends AppCompatActivity {
 
             sc.setText(Integer.toString(score));
             tv.setText(Integer.toString(number));
+
+            if(qu.getVisibility()==View.VISIBLE){
+                questionSet(qu, tv);
+            }
         }
 
 
+
+
+    }
+
+    public void questionSet(android.widget.TextView qu, android.widget.TextView tv){
+        if(String.valueOf(tv.getText()).equals("1")){
+            qu.setText("If you could go anywhere in the world, where would you go?");
+        }
+        else if(String.valueOf(tv.getText()).equals("2")){
+            qu.setText("If you were stranded on a desert island, what three things would you want to take with you?");
+        }
+        else if(String.valueOf(tv.getText()).equals("3")){
+            qu.setText("If you could eat only one food for the rest of your life, what would that be?");
+        }
+        else if(String.valueOf(tv.getText()).equals("4")){
+            qu.setText("If you won a million dollars, what is the first thing you would buy?");
+        }
+        else if(String.valueOf(tv.getText()).equals("5")){
+            qu.setText("If you could spaned the day with one fictional character, who would it be?");
+        }
+        else if(String.valueOf(tv.getText()).equals("6")){
+            qu.setText("If you found a magic lantern and a genie gave you three wishes, what would you wish?");
+        }
+        else{
+            qu.setText("");
+        }
+
+    }
+
+    public void on_click_icebreaker(View view){
+        android.widget.TextView qu = this.findViewById(R.id.questionTextView);
+        android.widget.TextView tv = this.findViewById(R.id.textView);
+
+        if(qu.getVisibility()==View.INVISIBLE){
+            qu.setVisibility(View.VISIBLE);
+            questionSet(qu, tv);
+        }
+        else{
+            qu.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void onClickAddRule(View view){
+        startActivity(new Intent(MainActivity.this, addDICEBREAKER.class));
 
     }
 }
