@@ -72,13 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             guess = Integer.parseInt(guessStr);
-            //Random generator
-            Random r = new Random();
-            int number = r.nextInt(6);
-            //Stops 0 from being outputted
-            while (number == 0) {
-                number = r.nextInt(6);
-            }
+            int number = randomNumber(); //gets random number from method
 
             if (number == guess) {
                 c.setText("Congratulations! +1");
@@ -99,6 +93,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    //Method to generare random number
+    private int randomNumber() {
+        //Random generator
+        Random r = new Random();
+        int number = r.nextInt(6);
+        //Stops 0 from being outputted
+        while (number == 0) {
+            number = r.nextInt(6);
+        }
+        return number;
     }
 
     public void questionSet(android.widget.TextView qu, android.widget.TextView tv){
